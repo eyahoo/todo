@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { IListItem } from "interfaces/IList";
+import { useState } from "react";
+import { List, Input } from "./components";
 
 function App() {
+  const [todoState, setTodoState] = useState<IListItem[]>([
+    { isDone: true, value: "test" },
+    { isDone: false, value: "test2" },
+  ]);
+  const addTodo = (todo: string) => {
+    setTodoState(prev => {
+      if (prev.length > 0) {
+        return [
+          ...prev,
+          {
+            isDone: false,
+            value: todo,
+          },
+        ];
+      } else {
+        return [
+          {
+            isDone: false,
+            value: todo,
+          },
+        ];
+      }
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Todo List</h1>
+      <Input addTodo={addTodo}></Input>
+      <List todoData={todoState}></List>
     </div>
   );
 }
