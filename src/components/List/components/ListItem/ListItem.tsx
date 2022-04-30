@@ -12,7 +12,7 @@ const ListItem = (listItem: IListItem) => {
       ) : (
         <div>
           <input type="checkbox" />
-          <li>{listItem.value}</li>
+          <del>{listItem.value}</del>
         </div>
       )}
     </div>
